@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace UserApp_SingnalR.DataAcces.Migrations
 {
     /// <inheritdoc />
@@ -12,13 +14,13 @@ namespace UserApp_SingnalR.DataAcces.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Assets",
+                name: "assets",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Path = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Path = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     FileType = table.Column<int>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
@@ -27,7 +29,7 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assets", x => x.Id);
+                    table.PrimaryKey("PK_assets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,16 +47,16 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "user_roles",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_user_roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,9 +78,9 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RolePermissions_Roles_RoleId",
+                        name: "FK_RolePermissions_user_roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Roles",
+                        principalTable: "user_roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -93,7 +95,7 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
                     Password = table.Column<string>(type: "TEXT", nullable: true),
-                    PictureId = table.Column<long>(type: "INTEGER", nullable: true),
+                    PictureId = table.Column<long>(type: "INTEGER", nullable: false),
                     RoleId = table.Column<long>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
@@ -104,14 +106,15 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Assets_PictureId",
+                        name: "FK_Users_assets_PictureId",
                         column: x => x.PictureId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
+                        principalTable: "assets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
+                        name: "FK_Users_user_roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Roles",
+                        principalTable: "user_roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -165,17 +168,37 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_Assets_ContentId",
-                        column: x => x.ContentId,
-                        principalTable: "Assets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Messages_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Messages_assets_ContentId",
+                        column: x => x.ContentId,
+                        principalTable: "assets",
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.InsertData(
+                table: "assets",
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "FileType", "IsDeleted", "Name", "Path", "UpdatedAt" },
+                values: new object[] { 1L, new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 0, false, "DefaultImage.png", "/images/DefaultImage.png", null });
+
+            migrationBuilder.InsertData(
+                table: "user_roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Admin" },
+                    { 2L, "User" },
+                    { 3L, "Guest" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_assets_FileType",
+                table: "assets",
+                column: "FileType");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_OwnerId",
@@ -237,10 +260,10 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Assets");
+                name: "assets");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "user_roles");
         }
     }
 }

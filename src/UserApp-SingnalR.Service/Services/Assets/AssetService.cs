@@ -4,6 +4,7 @@ using UserApp_SingnalR.Domain.Entities;
 using UserApp_SingnalR.Service.Helpers;
 using UserApp_SingnalR.Shared.DTOs.Assets;
 using UserApp_SingnalR.Shared.Exceptions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UserApp_SingnalR.Service.Services.Assets;
 
@@ -18,7 +19,7 @@ public class AssetService(IMapper mapper, IUnitOfWork unitOfWork) : IAssetServic
             Path = assetData.Path,
             FileType = model.FileType
         };
-
+        
         var createdAsset = await unitOfWork.Assets.InsertAsync(asset);
         await unitOfWork.SaveAsync();
 
