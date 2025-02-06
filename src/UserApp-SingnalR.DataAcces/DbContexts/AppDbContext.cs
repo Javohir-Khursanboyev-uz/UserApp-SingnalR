@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserApp_SingnalR.DataAcces.EntityConfigurations;
 using UserApp_SingnalR.Domain.Entities;
 
 namespace UserApp_SingnalR.DataAcces.DbContexts;
@@ -17,11 +18,16 @@ public class AppDbContext :DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+        modelBuilder.ApplyConfiguration(new AssetConfiguration());
+
+
         modelBuilder.Entity<Contact>()
-            .HasOne(c => c.Owner)
-            .WithMany(u => u.Contacts)
-            .HasForeignKey(c => c.OwnerId)
-            .OnDelete(DeleteBehavior.Cascade);
+           .HasOne(c => c.Owner)
+           .WithMany(u => u.Contacts)
+           .HasForeignKey(c => c.OwnerId)
+           .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Contact>()
             .HasOne(c => c.TargetUser)

@@ -36,9 +36,13 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -46,7 +50,20 @@ namespace UserApp_SingnalR.DataAcces.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Assets");
+                    b.HasIndex("FileType");
+
+                    b.ToTable("assets", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileType = 0,
+                            IsDeleted = false,
+                            Name = "DefaultImage.png",
+                            Path = "/images/DefaultImage.png"
+                        });
                 });
 
             modelBuilder.Entity("UserApp_SingnalR.Domain.Entities.Contact", b =>
@@ -183,7 +200,7 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("PictureId")
+                    b.Property<long>("PictureId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("RoleId")
@@ -211,11 +228,30 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("user_roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Guest"
+                        });
                 });
 
             modelBuilder.Entity("UserApp_SingnalR.Domain.Entities.Contact", b =>
@@ -277,7 +313,9 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                 {
                     b.HasOne("UserApp_SingnalR.Domain.Entities.Asset", "Picture")
                         .WithMany()
-                        .HasForeignKey("PictureId");
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("UserApp_SingnalR.Domain.Entities.UserRole", "Role")
                         .WithMany()
