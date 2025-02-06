@@ -8,7 +8,7 @@ public class User : Auditable
     public string Email { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
-    public long? PictureId { get; set; }
+    public long PictureId { get; set; }
     public Asset Picture { get; set; }
     public long RoleId { get; set; }
     public UserRole Role { get; set; }

@@ -1,4 +1,7 @@
-﻿namespace UserApp_SingnalR.Service.Helpers;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+using System;
+
+namespace UserApp_SingnalR.Service.Helpers;
 
 public static class PasswordHasher
 {
