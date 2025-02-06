@@ -4,7 +4,19 @@
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>UserApp_SingnalR.Shared</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Databases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserApp-SingnalR.Domain\UserApp-SingnalR.Domain.csproj" />
+  </ItemGroup>
 
 </Project>
