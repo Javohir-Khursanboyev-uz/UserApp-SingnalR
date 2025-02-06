@@ -1,6 +1,6 @@
 ﻿namespace UserApp_SingnalR.Domain.Entities;
 
-public class UserPermission 
+public class RolePermission 
 { 
     public long Id { get; set; }
     public long RoleId { get; set; }
