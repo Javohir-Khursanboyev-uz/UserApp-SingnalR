@@ -4,7 +4,7 @@ using UserApp_SingnalR.Service.Services.Assets;
 using UserApp_SingnalR.Service.Services.Users;
 using UserApp_SingnalR.Service.Validators.Users;
 
-namespace UserApp_SingnalR.Api.Helpers;
+namespace UserApp_SingnalR.WebApi.Helpers;
 
 public static class ServicesCollection
 {

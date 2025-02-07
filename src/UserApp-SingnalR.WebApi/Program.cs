@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using UserApp_SingnalR.Api.Helpers;
 using UserApp_SingnalR.DataAcces.DbContexts;
 using UserApp_SingnalR.Service.Mappers;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using UserApp_SingnalR.WebApi.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Serilog konfiguratsiyasi
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration));
+// Add services to the container.
 
-// 🔹 Xizmatlarni (services) qo‘shish
+builder.Services.AddControllers();
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddControllers(options =>
     options.Conventions.Add(new RouteTokenTransformerConvention(new ConfigurationApiUrlName())));
 
@@ -25,6 +23,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidators();
 builder.Services.AddServices();
+
 
 // 🔹 Swagger sozlamalari
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthorization();
@@ -46,3 +46,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

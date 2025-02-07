@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>UserApp_SingnalR.WebApi</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+	 <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserApp-SingnalR.DataAcces\UserApp-SingnalR.DataAcces.csproj" />
+    <ProjectReference Include="..\UserApp-SingnalR.Service\UserApp-SingnalR.Service.csproj" />
+    <ProjectReference Include="..\UserApp-SingnalR.Shared\UserApp-SingnalR.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
