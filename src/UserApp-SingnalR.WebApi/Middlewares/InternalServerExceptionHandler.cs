@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using UserApp_SingnalR.Shared.Exceptions;
 using UserApp_SingnalR.Shared.Models;
 
 public class InternalServerExceptionHandler(ILogger<InternalServerExceptionHandler> logger) : IExceptionHandler
@@ -13,7 +14,13 @@ public class InternalServerExceptionHandler(ILogger<InternalServerExceptionHandl
             Message = exception.Message,
         });
 
-        logger.LogError(exception.Message);
+        //if (exception is not AlreadyExistException 
+        //    && exception is not CustomException 
+        //    && exception is not NotFoundException 
+        //    && exception is not ArgumentIsNotValidException)
+        //{
+        //  //  logger.LogError(exception.Message);
+        //}
 
         return true;
     }
