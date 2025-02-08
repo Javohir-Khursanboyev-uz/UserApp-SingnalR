@@ -28,6 +28,8 @@ builder.Services.AddServices();
 // 🔹 Swagger sozlamalari
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
+builder.Services.AddJwtService(builder.Configuration);
 
 var app = builder.Build();
 

@@ -4,5 +4,6 @@ namespace UserApp_SingnalR.Service.Services.Users;
 
 public interface IUserService
 {
-    Task<UserViewModel> CreateAsync(UserCreateModel createModel);
+    Task<LoginViewModel> CreateAsync(UserCreateModel createModel);
+    Task<LoginViewModel> LoginAsync(LoginModel loginModel);
 }
