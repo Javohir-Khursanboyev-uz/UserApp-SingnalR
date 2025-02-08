@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using System.Security.Claims;
+
+using UserApp_SingnalR.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using UserApp_SingnalR.Domain.Entities;
-using UserApp_SingnalR.Service.Helpers;
 
-namespace UserApp_SingnalR.WebApi.Helpers;
+namespace UserApp_SingnalR.Service.Helpers;
 
 public class AuthHelper
 {
