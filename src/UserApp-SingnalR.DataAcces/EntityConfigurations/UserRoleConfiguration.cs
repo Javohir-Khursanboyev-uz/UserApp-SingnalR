@@ -16,9 +16,9 @@ public sealed class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
             .IsRequired();
 
         builder.HasData(
-            new UserRole { Id = 1, Name = "Admin" },
-            new UserRole { Id = 2, Name = "User" },
-            new UserRole { Id = 3, Name = "Guest" }
+            new UserRole { Id = 1, Name = "Admin", CreatedAt = new DateTime(2025, 01, 01) },
+            new UserRole { Id = 2, Name = "User" , CreatedAt = new DateTime(2025, 01, 01) },
+            new UserRole { Id = 3, Name = "Guest" , CreatedAt = new DateTime(2025, 01, 01) }
         );
     }
 }

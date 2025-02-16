@@ -25,9 +25,9 @@ public class UserService(IMapper mapper,
 
         var user = mapper.Map<User>(createModel);
         user.Password = PasswordHasher.Hash(createModel.Password);
-        user.RoleId = Constants.UserRoleId;
         user.PictureId = Constants.DefultImageId;
-
+        user.RoleId = Constants.UserRoleId;
+        user.Role = await GetUserRoleById(user.RoleId);
         var createdUser = await unitOfWork.Users.InsertAsync(user);
         await unitOfWork.SaveAsync();
 
@@ -54,4 +54,7 @@ public class UserService(IMapper mapper,
             Token = AuthHelper.GenerateToken(existUser)
         };
     }
+
+    private async Task<UserRole> GetUserRoleById(long userRoleId)
+        => await unitOfWork.Roles.SelectAsync(roleId => roleId.Id == userRoleId);
 }
