@@ -31,6 +31,7 @@ public static class ServicesCollection
     public static void AddValidators(this IServiceCollection services)
     {
         services.AddTransient<UserCreateModelValidator>();
+        services.AddTransient<LoginModelValidator>();
     }
 
     public static void InjectEnvironmentItems(this WebApplication app)

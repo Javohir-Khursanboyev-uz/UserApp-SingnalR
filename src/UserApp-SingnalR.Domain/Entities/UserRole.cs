@@ -1,7 +1,8 @@
-﻿namespace UserApp_SingnalR.Domain.Entities;
+﻿using UserApp_SingnalR.Domain.Commons;
 
-public class UserRole
+namespace UserApp_SingnalR.Domain.Entities;
+
+public class UserRole : Auditable
 {
-    public long Id { get; set; }
     public string Name { get; set; }
 }

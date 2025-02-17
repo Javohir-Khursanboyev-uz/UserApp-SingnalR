@@ -16,6 +16,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Message> Messages { get; }
 
     public IRepository<Contact> Contacts { get; }
+    public IRepository<UserRole> Roles { get; }
 
     public UnitOfWork(AppDbContext context)
     {
@@ -24,6 +25,7 @@ public class UnitOfWork : IUnitOfWork
         Assets = new Repository<Asset>(context);
         Contacts = new Repository<Contact>(context);
         Messages = new Repository<Message>(context);
+        Roles = new Repository<UserRole>(context);
     }
 
     public void Dispose()
