@@ -1,8 +1,9 @@
-﻿namespace UserApp_SingnalR.Domain.Entities;
+﻿using UserApp_SingnalR.Domain.Commons;
 
-public class RolePermission 
+namespace UserApp_SingnalR.Domain.Entities;
+
+public class RolePermission : Auditable
 { 
-    public long Id { get; set; }
     public long RoleId { get; set; }
     public UserRole Role { get; set; }
     public long PermissionId { get; set; }

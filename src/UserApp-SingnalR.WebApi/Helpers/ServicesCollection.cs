@@ -7,6 +7,7 @@ using UserApp_SingnalR.Service.Services.Users;
 using UserApp_SingnalR.Service.Services.Assets;
 using UserApp_SingnalR.Service.Validators.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using UserApp_SingnalR.Service.Services.Auths;
 
 namespace UserApp_SingnalR.WebApi.Helpers;
 
@@ -17,6 +18,7 @@ public static class ServicesCollection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAssetService, AssetService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
     }
 
     public static void AddExceptionHandlers(this IServiceCollection services)
@@ -46,6 +48,12 @@ public static class ServicesCollection
         EnvironmentHelper.SmtpHost = app.Configuration.GetSection("Email:Host").Value;
         EnvironmentHelper.PageSize = Convert.ToInt32(app.Configuration.GetSection("PaginationParams:PageSize").Value);
         EnvironmentHelper.PageIndex = Convert.ToInt32(app.Configuration.GetSection("PaginationParams:PageIndex").Value);
+    }
+
+    public static void AddInjectHelper(this WebApplication serviceProvider)
+    {
+        var scope = serviceProvider.Services.CreateScope();
+        InjectHelper.AuthService = scope.ServiceProvider.GetRequiredService<IAuthService>();
     }
 
     public static void AddJwtService(this IServiceCollection services, IConfiguration configuration)

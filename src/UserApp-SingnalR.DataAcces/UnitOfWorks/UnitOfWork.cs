@@ -18,6 +18,10 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<Contact> Contacts { get; }
     public IRepository<UserRole> Roles { get; }
 
+    public IRepository<Permission> Permissions {  get; }
+
+    public IRepository<RolePermission> RolePermissions {  get; }
+
     public UnitOfWork(AppDbContext context)
     {
         this.context = context;
@@ -26,6 +30,8 @@ public class UnitOfWork : IUnitOfWork
         Contacts = new Repository<Contact>(context);
         Messages = new Repository<Message>(context);
         Roles = new Repository<UserRole>(context);
+        Permissions = new Repository<Permission>(context);
+        RolePermissions = new Repository<RolePermission>(context);
     }
 
     public void Dispose()
