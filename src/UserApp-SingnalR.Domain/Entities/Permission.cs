@@ -1,8 +1,9 @@
-﻿namespace UserApp_SingnalR.Domain.Entities;
+﻿using UserApp_SingnalR.Domain.Commons;
 
-public class Permission
+namespace UserApp_SingnalR.Domain.Entities;
+
+public class Permission : Auditable
 {
-    public long Id { get; set; }
     public string Controller { get; set; }
     public string Action { get; set; }
 }

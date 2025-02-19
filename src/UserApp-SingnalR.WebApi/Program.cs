@@ -39,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.AddInjectHelper();
 app.InjectEnvironmentItems();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();

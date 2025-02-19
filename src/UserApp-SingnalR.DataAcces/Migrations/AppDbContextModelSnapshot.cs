@@ -150,6 +150,18 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                     b.Property<string>("Controller")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Permissions");
@@ -161,11 +173,23 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("PermissionId")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("RoleId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -317,7 +341,7 @@ namespace UserApp_SingnalR.DataAcces.Migrations
                         .IsRequired();
 
                     b.HasOne("UserApp_SingnalR.Domain.Entities.UserRole", "Role")
-                        .WithMany()
+                        .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -354,6 +378,11 @@ namespace UserApp_SingnalR.DataAcces.Migrations
             modelBuilder.Entity("UserApp_SingnalR.Domain.Entities.User", b =>
                 {
                     b.Navigation("Contacts");
+                });
+
+            modelBuilder.Entity("UserApp_SingnalR.Domain.Entities.UserRole", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }

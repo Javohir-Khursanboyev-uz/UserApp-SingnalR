@@ -11,6 +11,8 @@ public interface IUnitOfWork : IDisposable
     IRepository<Contact> Contacts { get; }
     IRepository<Message> Messages { get; }
     IRepository<UserRole> Roles { get; }
+    IRepository<Permission> Permissions { get; }
+    IRepository<RolePermission> RolePermissions { get; }
     Task<bool> SaveAsync();
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();
