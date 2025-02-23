@@ -8,7 +8,7 @@ using UserApp_SingnalR.WebApi.Services;
 
 [Route("api/[controller]")]
 [ApiController]
-[CustomAuthorize]
+//[CustomAuthorize]
 public class UsersController(IUserService userService) : ControllerBase
 {
     [HttpPost]

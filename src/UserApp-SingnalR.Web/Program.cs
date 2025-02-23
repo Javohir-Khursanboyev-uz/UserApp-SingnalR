@@ -1,10 +1,13 @@
 using UserApp_SingnalR.Web.Components;
+using UserApp_SingnalR.Web.Service.Extensiions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddWebServices(builder.Configuration);
 
 var app = builder.Build();
 
