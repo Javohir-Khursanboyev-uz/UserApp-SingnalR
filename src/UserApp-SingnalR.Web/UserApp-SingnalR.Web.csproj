@@ -8,4 +8,8 @@
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UserApp-SingnalR.Web.Service\UserApp-SingnalR.Web.Service.csproj" />
+  </ItemGroup>
+
 </Project>

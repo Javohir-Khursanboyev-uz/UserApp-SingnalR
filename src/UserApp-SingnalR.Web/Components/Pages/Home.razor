@@ -1,7 +1,28 @@
 ﻿@page "/"
+@using UserApp_SingnalR.Shared.DTOs.Users
+@rendermode InteractiveServer
+@inject IUserApiService userApiService
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<button class="btn" @onclick="CreateAsync">Create User </button>
+
+@code {
+
+	private async Task CreateAsync(){
+
+		var user = new UserCreateModel
+			{
+				Name = "hd",
+				UserName = "Javohr",
+				Email = "Javohr@gmail.com",
+				Password ="Javohir36!"
+			};
+
+		await userApiService.CreateAsync(user);
+	}
+}
