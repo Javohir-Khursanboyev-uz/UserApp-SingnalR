@@ -12,25 +12,13 @@ using UserApp_SingnalR.WebApi.Services;
 public class UsersController(IUserService userService) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> PostAsync(UserCreateModel createModel)
+    public async Task<IActionResult> PostAsync([FromBody]UserCreateModel createModel)
     {
         return Ok(new Response
         {
             StatusCode = 200,
             Message = "Succes",
             Data = await userService.CreateAsync(createModel)
-        });
-    }
-
-    [HttpGet("login")]
-    [AllowAnonymous]
-    public async ValueTask<IActionResult> LoginAsync([FromQuery] LoginModel loginModel)
-    {
-        return Ok(new Response
-        {
-            StatusCode = 200,
-            Message = "Ok",
-            Data = await userService.LoginAsync(loginModel)
         });
     }
 }

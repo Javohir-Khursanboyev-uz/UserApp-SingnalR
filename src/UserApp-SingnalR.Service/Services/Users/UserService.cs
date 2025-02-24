@@ -42,7 +42,8 @@ public class UserService(IMapper mapper,
     {
         await loginValidator.EnsureValidatedAsync(loginModel);
 
-        var existUser = await unitOfWork.Users.SelectAsync(u => u.UserName.ToLower() == loginModel.UserName.ToLower())
+        var existUser = await unitOfWork.Users
+            .SelectAsync(expression: u => u.UserName.ToLower() == loginModel.UserName.ToLower(), includes: ["Role"])
            ?? throw new ArgumentIsNotValidException("UserName or Password incorrect");
 
         if (!PasswordHasher.Verify(loginModel.Password, existUser.Password))
