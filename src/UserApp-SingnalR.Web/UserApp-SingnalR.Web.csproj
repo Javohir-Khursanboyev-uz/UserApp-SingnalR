@@ -12,4 +12,8 @@
     <ProjectReference Include="..\UserApp-SingnalR.Web.Service\UserApp-SingnalR.Web.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\Chats\" />
+  </ItemGroup>
+
 </Project>
