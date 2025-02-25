@@ -9,6 +9,7 @@ public partial class Register
     [Inject]
     IUserApiService userApiService { get; set; }
 
+    [Inject]
     private NavigationManager navigationManager { get; set; }
     private UserCreateModel createModel = new UserCreateModel();
     private bool showError = false;
