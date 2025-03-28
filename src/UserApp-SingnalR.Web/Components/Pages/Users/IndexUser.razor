@@ -1,5 +1,41 @@
-﻿<h3>IndexUser</h3>
+﻿@page "/user"
 
 @code {
+    private bool isMenuOpen = false;
 
+    void ToggleMenu()
+    {
+        isMenuOpen = !isMenuOpen;
+    }
 }
+
+<div class="min-h-screen bg-gray-100 flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Milliygramm</h1>
+        <button @onclick="ToggleMenu" class="md:hidden text-white focus:outline-none">
+            ☰
+        </button>
+        <ul class="hidden md:flex space-x-6">
+            <li><a href="/home" class="hover:underline">Home</a></li>
+            <li><a href="/profile" class="hover:underline">Profile</a></li>
+            <li><a href="/chat" class="hover:underline">Chat</a></li>
+            <li><a href="/settings" class="hover:underline">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden bg-blue-600 text-white p-4" style="@(isMenuOpen ? "display:block;" : "display:none;")">
+        <ul class="space-y-4">
+            <li><a href="/home" class="hover:underline">Home</a></li>
+            <li><a href="/profile" class="hover:underline">Profile</a></li>
+            <li><a href="/chat" class="hover:underline">Chat</a></li>
+            <li><a href="/settings" class="hover:underline">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow flex items-center justify-center">
+        <h2 class="text-xl font-semibold">Welcome to Milliygramm!</h2>
+    </div>
+</div>

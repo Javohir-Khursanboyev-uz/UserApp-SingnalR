@@ -8,6 +8,7 @@ using UserApp_SingnalR.Service.Services.Assets;
 using UserApp_SingnalR.Service.Validators.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using UserApp_SingnalR.Service.Services.Auths;
+using UserApp_SingnalR.Service.Validators.Assets;
 
 namespace UserApp_SingnalR.WebApi.Helpers;
 
@@ -34,6 +35,7 @@ public static class ServicesCollection
     {
         services.AddTransient<UserCreateModelValidator>();
         services.AddTransient<LoginModelValidator>();
+        services.AddTransient<AssetCreateModelValidator>();
     }
 
     public static void InjectEnvironmentItems(this WebApplication app)

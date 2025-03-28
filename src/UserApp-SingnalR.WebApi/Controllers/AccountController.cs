@@ -12,7 +12,7 @@ public class AccountController(IUserService userService) : Controller
 {
     [HttpPost("login")]
     [AllowAnonymous]
-    public async ValueTask<IActionResult> LoginAsync([FromBody]LoginModel loginModel)
+    public async Task<IActionResult> LoginAsync([FromBody]LoginModel loginModel)
     {
         return Ok(new Response
         {

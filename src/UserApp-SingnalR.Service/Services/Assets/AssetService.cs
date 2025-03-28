@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
 using UserApp_SingnalR.DataAcces.UnitOfWorks;
 using UserApp_SingnalR.Domain.Entities;
+using UserApp_SingnalR.Service.Extensions;
 using UserApp_SingnalR.Service.Helpers;
+using UserApp_SingnalR.Service.Validators.Assets;
 using UserApp_SingnalR.Shared.DTOs.Assets;
 using UserApp_SingnalR.Shared.Exceptions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UserApp_SingnalR.Service.Services.Assets;
 
-public class AssetService(IMapper mapper, IUnitOfWork unitOfWork) : IAssetService
+public class AssetService(IMapper mapper, IUnitOfWork unitOfWork, AssetCreateModelValidator createModelValidator) : IAssetService
 {
     public async Task<AssetViewModel> UploadAsync(AssetCreateModel model)
     {
+        await createModelValidator.EnsureValidatedAsync(model);
+
         var assetData = await FileHelper.CreateFileAsync(model);
         var asset = new Asset()
         {
